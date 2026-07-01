@@ -1,0 +1,263 @@
+# 🛒 MSN Mart
+
+> **A Modern Full-Stack E-Commerce Web Application built with Spring Boot, Thymeleaf, Spring Security, Razorpay, Twilio, and MySQL.**
+
+MSN Mart is a secure and scalable e-commerce platform that provides a complete online shopping experience. The application follows a layered architecture and integrates enterprise-grade features such as authentication, role-based authorization, online payment processing, OTP verification, email notifications, and responsive UI design.
+
+---
+
+## 🚀 Features
+
+### 👤 Authentication & Security
+
+* User Registration & Login
+* Spring Security Authentication
+* Role-Based Authorization (Admin & Customer)
+* BCrypt Password Encryption
+* OTP Verification
+* Password Reset via Email
+* Session Management
+
+---
+
+### 🛍️ E-Commerce Modules
+
+#### Customer
+
+* Browse Products
+* Search Products
+* Product Details
+* Add to Cart
+* Update Cart Quantity
+* Remove Products from Cart
+* Secure Checkout
+* Place Orders
+* View Order History
+
+#### Admin
+
+* Dashboard
+* Add Products
+* Update Products
+* Delete Products
+* Manage Orders
+* Manage Inventory
+
+---
+
+### 💳 Payment Integration
+
+* Razorpay Payment Gateway
+* Secure Online Payments
+* Payment Signature Verification
+* Payment Failure Handling
+* Order Payment Status Management
+
+---
+
+### 📧 Email Services
+
+* Order Confirmation Emails
+* Password Reset Emails
+* Account Notifications
+* OTP Email Verification
+
+---
+
+### 📱 Twilio Integration
+
+* SMS OTP Verification
+* User Verification
+* Secure Authentication Support
+
+---
+
+### 🎨 User Interface
+
+* Responsive Design
+* Modern UI
+* Mobile-Friendly Layout
+* Smooth Navigation
+* Clean User Experience
+
+---
+
+## 🏗️ Project Architecture
+
+```
+Presentation Layer
+        │
+        ▼
+Controller Layer
+        │
+        ▼
+Service Layer
+(Business Logic)
+        │
+        ▼
+Repository Layer
+(Spring Data JPA)
+        │
+        ▼
+MySQL Database
+```
+
+The project follows the **Layered Architecture Pattern**, making the code modular, maintainable, and easy to scale.
+
+---
+
+## 🛠️ Tech Stack
+
+### Backend
+
+* Java
+* Spring Boot
+* Spring MVC
+* Spring Data JPA
+* Spring Security
+* Hibernate
+
+### Frontend
+
+* Thymeleaf
+* HTML5
+* CSS3
+* Bootstrap
+* JavaScript
+
+### Database
+
+* MySQL
+
+### Integrations
+
+* Razorpay Payment Gateway
+* Twilio API
+* JavaMailSender
+
+### Build Tool
+
+* Maven
+
+### Version Control
+
+* Git & GitHub
+
+---
+
+## 🔐 Security Features
+
+* Spring Security Authentication
+* Role-Based Access Control
+* BCrypt Password Hashing
+* Secure Login Sessions
+* OTP Verification
+* Password Reset Flow
+* Protected Admin Routes
+
+---
+
+## 📦 Project Modules
+
+```
+MSN Mart
+│
+├── Authentication
+├── Product Management
+├── Category Management
+├── Shopping Cart
+├── Order Management
+├── Payment Integration
+├── Email Service
+├── OTP Verification
+├── User Management
+└── Admin Dashboard
+```
+
+---
+
+## 🔄 Application Flow
+
+```
+User Registration
+        │
+        ▼
+OTP Verification
+        │
+        ▼
+Login
+        │
+        ▼
+Browse Products
+        │
+        ▼
+Add to Cart
+        │
+        ▼
+Checkout
+        │
+        ▼
+Razorpay Payment
+        │
+        ▼
+Payment Verification
+        │
+        ▼
+Order Created
+        │
+        ▼
+Email Confirmation
+```
+
+---
+
+## ⭐ Key Highlights
+
+* Enterprise-Level Project Structure
+* Layered Architecture
+* Secure Authentication & Authorization
+* Online Payment Gateway Integration
+* OTP Verification using Twilio
+* Email Notifications
+* Transaction Management
+* Responsive User Interface
+* Clean and Maintainable Code
+* Production-Oriented Design
+
+---
+
+## 📚 Learning Outcomes
+
+Through this project, I gained hands-on experience with:
+
+* Spring Boot
+* Spring Security
+* Spring MVC
+* Spring Data JPA
+* Hibernate ORM
+* Thymeleaf
+* RESTful Design Principles
+* MySQL Database Design
+* Razorpay Integration
+* Twilio API
+* JavaMailSender
+* Exception Handling
+* Transaction Management
+* Role-Based Authentication
+* Enterprise Application Development
+
+---
+
+## 👨‍💻 Author
+
+**Maruti Hanumanth Naik**
+
+Computer Science Engineer | Java Full Stack Developer
+
+GitHub: **Maruti1887**
+
+---
+
+## 📄 License
+
+This project is created for learning, portfolio, and demonstration purposes.
