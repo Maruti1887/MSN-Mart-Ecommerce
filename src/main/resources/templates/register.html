@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>MSN Mart - Register</title>
+
+<!-- Bootstrap -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Bootstrap Icons -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+
+<!-- Google Font -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+
+:root{
+    --primary-color:#4F46E5;
+    --primary-hover:#4338CA;
+    --secondary-color:#10B981;
+    --danger-color:#EF4444;
+    --white:#FFFFFF;
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html, body {
+    height: 100%;
+}
+
+body{
+    min-height:100vh;
+    font-family:'Inter',sans-serif;
+    overflow-x:hidden;
+    position:relative;
+    background: linear-gradient(-45deg,
+        #4F46E5,
+        #7C3AED,
+        #06B6D4,
+        #10B981);
+    background-size:400% 400%;
+    animation:gradientBG 15s ease infinite;
+}
+
+/* Glow Background */
+body::before,
+body::after{
+    content:'';
+    position:fixed;
+    width:350px;
+    height:350px;
+    border-radius:50%;
+    background:rgba(255,255,255,0.08);
+    filter:blur(40px);
+    z-index:0;
+    pointer-events:none;
+}
+
+body::before{
+    top:-100px;
+    left:-100px;
+}
+
+body::after{
+    bottom:-100px;
+    right:-100px;
+}
+
+/* Navbar */
+.navbar{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    z-index:1000;
+    background:rgba(255,255,255,0.1);
+    backdrop-filter:blur(14px);
+    border-bottom:1px solid rgba(255,255,255,0.15);
+    animation:fadeDown 1s ease;
+}
+
+.navbar-brand{
+    color:white !important;
+    font-size:1.8rem;
+    font-weight:800;
+    letter-spacing:1px;
+    text-shadow:0 0 18px rgba(255,255,255,0.4);
+    transition:0.3s ease;
+}
+
+.navbar-brand:hover{
+    transform:scale(1.03);
+}
+
+/* ✅ FIX: Register Section - proper full-height flex centering */
+.register-section{
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* 
+      FIX: Instead of a large fixed top padding (120px) which pushes the card 
+      down off-center, we use padding-top just enough to clear the fixed navbar,
+      and keep padding-bottom equal so the card truly centers vertically.
+    */
+    padding: 80px 1rem 80px;
+    position: relative;
+    z-index: 2;
+}
+
+/* ✅ FIX: Register Card - ensure it doesn't stretch */
+.register-container{
+    width:100%;
+    max-width:480px;
+    /* ✅ FIX: Remove margin:auto — flex parent already centers it */
+    padding:2.8rem;
+    border-radius:22px;
+    background:rgba(255,255,255,0.15);
+    backdrop-filter:blur(18px);
+    border:1px solid rgba(255,255,255,0.2);
+    box-shadow:0 8px 32px rgba(0,0,0,0.2);
+    animation:fadeUp 1s ease;
+    position: relative;
+    z-index: 3;
+}
+
+/* Brand */
+.brand-title{
+    text-align:center;
+    font-size:2.4rem;
+    font-weight:800;
+    color:white;
+    letter-spacing:1px;
+    text-shadow:0 0 18px rgba(255,255,255,0.5);
+    animation:glowText 2s infinite alternate;
+}
+
+.register-subtitle{
+    text-align:center;
+    color:rgba(255,255,255,0.85);
+    margin-top:0.6rem;
+    margin-bottom:2rem;
+    font-size:0.95rem;
+}
+
+/* Input */
+.input-group{
+    margin-bottom:0;
+}
+
+.input-group-text{
+    background:rgba(255,255,255,0.15);
+    border:1px solid rgba(255,255,255,0.15);
+    color:white;
+    border-radius:14px 0 0 14px;
+}
+
+.form-control{
+    background:rgba(255,255,255,0.12);
+    border:1px solid rgba(255,255,255,0.15);
+    color:white;
+    padding:0.8rem 1rem;
+    border-radius:0 14px 14px 0;
+    transition:0.3s ease;
+}
+
+.form-control::placeholder{
+    color:rgba(255,255,255,0.7);
+}
+
+.form-control:focus{
+    background:rgba(255,255,255,0.18);
+    border-color:white;
+    color:white;
+    box-shadow:0 0 0 4px rgba(255,255,255,0.1);
+}
+
+/* ✅ FIX: Removed transform:scale on hover — caused layout shift inside input-group flex */
+
+/* Labels */
+.form-label,
+.form-check-label{
+    color:white;
+}
+
+/* Radio & Checkbox */
+.form-check-input{
+    background-color:rgba(255,255,255,0.2);
+    border:1px solid rgba(255,255,255,0.3);
+}
+
+.form-check-input:checked{
+    background-color:white;
+    border-color:white;
+}
+
+/* ✅ FIX: Gender container now has consistent bottom margin like other fields */
+.gender-container{
+    margin-bottom: 1rem;
+}
+
+/* Terms */
+.terms-container{
+    margin-top:1rem;
+    color:white;
+}
+
+.terms-container a{
+    color:#dbeafe;
+    text-decoration:none;
+    font-weight:600;
+}
+
+.terms-container a:hover{
+    color:white;
+}
+
+/* Error */
+.text-danger{
+    color:#FFD1D1 !important;
+    font-size:0.85rem;
+    margin-top:0.3rem;
+    display: block;
+}
+
+/* Button */
+.btn-register{
+    width:100%;
+    border:none;
+    padding:0.95rem;
+    border-radius:14px;
+    background:linear-gradient(135deg,
+        #ffffff,
+        #dbeafe);
+    color:#4F46E5;
+    font-weight:700;
+    transition:0.4s ease;
+    position:relative;
+    overflow:hidden;
+}
+
+.btn-register::before{
+    content:'';
+    position:absolute;
+    top:0;
+    left:-120%;
+    width:100%;
+    height:100%;
+    background:rgba(255,255,255,0.3);
+    transition:0.5s;
+}
+
+.btn-register:hover::before{
+    left:120%;
+}
+
+.btn-register:hover{
+    transform:translateY(-4px) scale(1.02);
+    box-shadow:0 12px 28px rgba(255,255,255,0.2);
+}
+
+/* Links */
+.links{
+    margin-top:1.6rem;
+    text-align:center;
+    color:white;
+}
+
+.links a{
+    color:#dbeafe;
+    text-decoration:none;
+    font-weight:600;
+    transition:0.3s ease;
+}
+
+.links a:hover{
+    color:white;
+    text-decoration:none;
+}
+
+/* Toast */
+.toast{
+    border-radius:14px;
+}
+
+/* Footer */
+.footer{
+    position:fixed;
+    bottom:0;
+    left:0;
+    width:100%;
+    text-align:center;
+    color:white;
+    font-weight:600;
+    letter-spacing:1px;
+    padding:12px;
+    z-index:10;
+    background:rgba(0,0,0,0.15);
+    backdrop-filter:blur(10px);
+}
+
+/* Animations */
+@keyframes gradientBG{
+    0%{ background-position:0% 50%; }
+    50%{ background-position:100% 50%; }
+    100%{ background-position:0% 50%; }
+}
+
+@keyframes fadeUp{
+    from{ opacity:0; transform:translateY(40px); }
+    to{ opacity:1; transform:translateY(0); }
+}
+
+@keyframes fadeDown{
+    from{ opacity:0; transform:translateY(-30px); }
+    to{ opacity:1; transform:translateY(0); }
+}
+
+@keyframes glowText{
+    from{ text-shadow:0 0 10px rgba(255,255,255,0.3); }
+    to{ text-shadow:0 0 24px rgba(255,255,255,0.9); }
+}
+
+/* Responsive */
+@media(max-width:576px){
+    .register-section{
+        /* ✅ FIX: On mobile, slightly less top padding but still balanced */
+        padding: 70px 1rem 70px;
+        align-items: flex-start;
+        padding-top: 80px;
+    }
+
+    .register-container{
+        padding:2rem 1.5rem;
+    }
+
+    .brand-title{
+        font-size:2rem;
+    }
+
+    .navbar-brand{
+        font-size:1.5rem;
+    }
+}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark">
+    <div class="container">
+        <a class="navbar-brand" href="/">
+            <i class="bi bi-bag-heart-fill me-2"></i>
+            MSN Mart
+        </a>
+    </div>
+</nav>
+
+<!-- Registration Section -->
+<section class="register-section">
+
+    <div class="register-container">
+
+        <h1 class="brand-title">
+            <i class="bi bi-person-plus-fill me-2"></i>
+            MSN Mart
+        </h1>
+
+        <p class="register-subtitle">
+            Create your premium shopping account
+        </p>
+
+        <form action="/register"
+              method="post"
+              th:object="${userDto}">
+
+            <!-- Name -->
+            <div class="mb-3">
+                <div class="input-group">
+                    <span class="input-group-text">
+                        <i class="bi bi-person"></i>
+                    </span>
+                    <input type="text"
+                           placeholder="Full Name"
+                           class="form-control"
+                           th:field="*{name}">
+                </div>
+                <span th:errors="*{name}" class="text-danger"></span>
+            </div>
+
+            <!-- Email -->
+            <div class="mb-3">
+                <div class="input-group">
+                    <span class="input-group-text">
+                        <i class="bi bi-envelope"></i>
+                    </span>
+                    <input type="email"
+                           placeholder="Email"
+                           class="form-control"
+                           th:field="*{email}">
+                </div>
+                <span th:errors="*{email}" class="text-danger"></span>
+            </div>
+
+            <!-- Password -->
+            <div class="mb-3">
+                <div class="input-group">
+                    <span class="input-group-text">
+                        <i class="bi bi-lock"></i>
+                    </span>
+                    <input type="password"
+                           placeholder="Password"
+                           class="form-control"
+                           th:field="*{password}">
+                </div>
+                <span th:errors="*{password}" class="text-danger"></span>
+            </div>
+
+            <!-- Confirm Password -->
+            <div class="mb-3">
+                <div class="input-group">
+                    <span class="input-group-text">
+                        <i class="bi bi-lock-fill"></i>
+                    </span>
+                    <input type="password"
+                           placeholder="Confirm Password"
+                           class="form-control"
+                           th:field="*{confirmPassword}">
+                </div>
+                <span th:errors="*{confirmPassword}" class="text-danger"></span>
+            </div>
+
+            <!-- Mobile -->
+            <div class="mb-3">
+                <div class="input-group">
+                    <span class="input-group-text">
+                        <i class="bi bi-phone"></i>
+                    </span>
+                    <input type="tel"
+                           placeholder="Mobile"
+                           class="form-control"
+                           th:field="*{mobile}">
+                </div>
+                <span th:errors="*{mobile}" class="text-danger"></span>
+            </div>
+
+            <!-- Gender -->
+            <div class="gender-container">
+                <label class="form-label mb-2">
+                    <i class="bi bi-gender-ambiguous me-1"></i>
+                    Gender:
+                </label>
+                <div class="d-flex gap-4">
+                    <div class="form-check">
+                        <input class="form-check-input"
+                               type="radio"
+                               value="male"
+                               th:field="*{gender}">
+                        <label class="form-check-label">Male</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input"
+                               type="radio"
+                               value="female"
+                               th:field="*{gender}">
+                        <label class="form-check-label">Female</label>
+                    </div>
+                </div>
+                <span th:errors="*{gender}" class="text-danger"></span>
+            </div>
+
+            <!-- Terms -->
+            <div class="terms-container form-check">
+                <input class="form-check-input"
+                       type="checkbox"
+                       th:field="*{terms}"
+                       id="terms">
+                <label class="form-check-label" for="terms">
+                    I accept the
+                    <a href="#">Terms and Conditions</a>
+                </label>
+                <span th:errors="*{terms}" class="text-danger"></span>
+            </div>
+
+            <!-- Button -->
+            <button type="submit" class="btn btn-register mt-4">
+                <i class="bi bi-person-plus me-2"></i>
+                Create Account
+            </button>
+
+        </form>
+
+        <!-- Login -->
+        <div class="links">
+            Already have an account?
+            <a href="/login">Sign In</a>
+        </div>
+
+    </div>
+
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+    © 2026 MSN Mart | Developed by Maruti
+</footer>
+
+<!-- Toast -->
+<div class="toast-container position-fixed top-0 end-0 p-3">
+
+    <!-- Success -->
+    <div class="toast align-items-center text-white border-0"
+         role="alert"
+         aria-live="assertive"
+         aria-atomic="true"
+         th:if="${success != null}"
+         data-bs-autohide="true"
+         data-bs-delay="3000">
+        <div class="d-flex">
+            <div class="toast-body bg-success rounded-start">
+                <i class="bi bi-check-circle me-2"></i>
+                <span th:text="${success}"></span>
+            </div>
+            <button type="button"
+                    class="btn-close btn-close-white me-2 m-auto"
+                    data-bs-dismiss="toast">
+            </button>
+        </div>
+    </div>
+
+    <!-- Error -->
+    <div class="toast align-items-center text-white border-0"
+         role="alert"
+         aria-live="assertive"
+         aria-atomic="true"
+         th:if="${error != null}"
+         data-bs-autohide="true"
+         data-bs-delay="3000">
+        <div class="d-flex">
+            <div class="toast-body bg-danger rounded-start">
+                <i class="bi bi-exclamation-circle me-2"></i>
+                <span th:text="${error}"></span>
+            </div>
+            <button type="button"
+                    class="btn-close btn-close-white me-2 m-auto"
+                    data-bs-dismiss="toast">
+            </button>
+        </div>
+    </div>
+
+</div>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    var toastElList = [].slice.call(document.querySelectorAll('.toast'));
+    var toastList = toastElList.map(function(toastEl) {
+        return new bootstrap.Toast(toastEl);
+    });
+    toastList.forEach(toast => toast.show());
+});
+</script>
+
+</body>
+</html>
